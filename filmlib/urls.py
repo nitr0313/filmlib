@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-urlpatterns = [
+urlpatterns = [    
     path('', views.home, name='home'),
+    path('searchmovie/', views.movie_search, name='search')
 ]

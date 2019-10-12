@@ -1,0 +1,40 @@
+{% extends 'filmlib/base_film.html' %}
+
+{% block title %}
+Add movie - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <!-- Material form contact -->
+    <div class="card">
+
+        <h5 class="card-header info-color white-text text-center py-4">
+            <strong>Seach movie</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;" action="#!" method="Post">
+            {% csrf_token %}
+
+                <!-- Movie Name -->
+                <div class="md-form mt-3">
+                    <input type="text" id="materialContactFormName" name="movie_name" class="form-control">
+                    <label for="materialContactFormName">Movie name</label>
+                </div>
+
+                <!-- Send button -->
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+        <h1> {{ url }} </h1>
+
+    </div>
+    <!-- Material form contact -->
+{% endblock content %}
