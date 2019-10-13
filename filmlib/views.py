@@ -17,33 +17,42 @@ def add_movie(request):
 
 
 def movie_search(request):
-    url = base_search_url.format(request.POST.get('movie_name'), False)
+    req = request.POST.get('movie_name', False)
+    result = []
+    url = ''
+    if req:
+        print(req)
+        url = base_search_url.format(req)
+        print(url)
 
-    res = requests.get(url)
-    data = res.text
-    soup = BeautifulSoup(data, features='html.parser')
-    movies_list = soup.find_all('div', {'class': 'element'})
-    res = []
-    index = 0
-    for movie in movies_list:
-        raw_name = movie.find(class_='name')
-        name = raw_name.text
-        if 'data-type="person"' in name or 'data-type="place"' in name:
-            continue
-        main_url = raw_name.find("a").get("data-url")
-        data_id = raw_name.find("a").get("data-id")
+        res = requests.get(url)
+        data = res.text
+        soup = BeautifulSoup(data, features='html.parser')
+        movies_list = soup.find_all('div', {'class': 'element'})
+        print(movies_list)
+        index = 0
+        for movie in movies_list:
+            raw_name = movie.find(class_='name')
+            if 'data-type="person"' in raw_name or 'data-type="place"' in raw_name:
+                continue
+            raw_url = raw_name.find("a").get("data-url") 
 
-        raw_rate = movie.find(class_='rating')
-        if raw_rate:
-            rate = raw_rate.text
-        else:
-            rate = '0'
+            name = raw_name.text # Movie name
+            main_url = base_url.format(raw_url) # Url of main page movie kinopoisk.ru    
+            data_id = raw_name.find("a").get("data-id") # id in kinopoisk datebase
+            raw_rate = movie.find(class_='rating') # Movie Rating 
+            big_img = big_img_url.format('.'.join([data_id,'jpg'])) # Poster image
+            
+            if raw_rate:
+                rate = raw_rate.text
+            else:
+                rate = '0'
 
-        res.append((name,rate,base_url.format(main_url),big_img_url.format('.'.join([data_id,'jpg']))))
-        index += 1
+            result.append((name,rate,main_url,big_img))
+            index += 1
 
     con = {
-        'movies': res,
+        'movies': result,
         'url': url,
         'search_results': True
     }

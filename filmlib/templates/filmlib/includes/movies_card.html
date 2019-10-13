@@ -11,7 +11,7 @@
                 <!-- Card image -->
                 <div class="view overlay">
                 <img class="card-img-top" src="{{ movie.3 }}" alt="Card image cap">
-                <a href="#!">
+                <a href="{{ movie.2 }}">
                     <div class="mask rgba-white-slight"></div>
                 </a>
                 </div>
@@ -22,9 +22,9 @@
                 <!-- Title -->
                 <h4 class="card-title">{{ movie.0 }}</h4>
                 <!-- Text -->
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text"> Rating : {{ movie.1 }}</p>
                 <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                <button type="button" class="btn btn-primary btn-md">Read more</button>
+                <button type="button" class="btn btn-primary btn-md">Add to our base</button>
 
                 </div>
                 <!-- Card content -->

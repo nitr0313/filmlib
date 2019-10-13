@@ -22,8 +22,8 @@ Add movie - {{ block.super }}
 
                 <!-- Movie Name -->
                 <div class="md-form mt-3">
-                    <input type="text" id="materialContactFormName" name="movie_name" class="form-control">
-                    <label for="materialContactFormName">Movie name</label>
+                    {% comment %} <label for="materialContactFormName">Movie name</label> {% endcomment %}
+                    <input type="text" id="materialContactFormName" name="movie_name" class="form-control" placeholder="Movie name">                    
                 </div>
 
                 <!-- Send button -->
