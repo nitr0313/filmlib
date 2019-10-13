@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from bs4 import BeautifulSoup
-import requests 
-
+import requests
+from .utils import get_movie_info
+from django.views.generic import View
+ 
 
 base_search_url = 'https://www.kinopoisk.ru/index.php?kp_query={}'
 base_url = 'https://www.kinopoisk.ru{}'
@@ -12,8 +14,29 @@ def home(request):
     return render(request, 'filmlib/index.html')
 
 
-def add_movie(request):
-    return render(request, 'filmlib/add_movie.html')
+class AddMovie(View):
+    def get(self, request, id):
+        dic_data = get_movie_info(id)
+        ls = ['title','poster','about','rait',
+            'rait_out','director','stars',
+            'genre','add_date','release']
+        result = []
+        for field in ls:
+            result.append(dic_data.get(field, ''))
+        con = {
+            'movie': result,
+
+        }
+        return render(request, 'filmlib/add_movie.html', context=con)
+
+    def post(self, request ):
+        # If all OK, redirect to deteail movie
+        pass
+
+
+
+def add_movie(request):    
+    return render(request, 'filmlib/search_movie.html')
 
 
 def movie_search(request):
@@ -21,15 +44,12 @@ def movie_search(request):
     result = []
     url = ''
     if req:
-        print(req)
         url = base_search_url.format(req)
-        print(url)
 
         res = requests.get(url)
         data = res.text
         soup = BeautifulSoup(data, features='html.parser')
         movies_list = soup.find_all('div', {'class': 'element'})
-        print(movies_list)
         index = 0
         for movie in movies_list:
             raw_name = movie.find(class_='name')
@@ -48,7 +68,7 @@ def movie_search(request):
             else:
                 rate = '0'
 
-            result.append((name,rate,main_url,big_img))
+            result.append((name,rate,main_url,big_img,data_id))
             index += 1
 
     con = {
@@ -56,4 +76,4 @@ def movie_search(request):
         'url': url,
         'search_results': True
     }
-    return render(request, 'filmlib/add_movie.html', context = con)
+    return render(request, 'filmlib/search_movie.html', context = con)

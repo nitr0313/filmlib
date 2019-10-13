@@ -15,6 +15,9 @@ class Movie(models.Model):
     release = models.IntegerField(blank=True) # release date
 
 
+    # def get_create_url(self, kino_id):
+    #     return reverse('add_new_movie', {*args, **kwargs})
+
     class Meta:
         verbose_name = "Movie"
         verbose_name_plural = "Movies"

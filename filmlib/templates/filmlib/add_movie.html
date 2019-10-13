@@ -1,48 +1,58 @@
 {% extends 'filmlib/base_film.html' %}
 
-{% block title %}
-Add movie - {{ block.super }}
-{% endblock title %}
 
 {% block content %}
-<div class="container"> 
-    <!-- Material form contact -->
-    <div class="card">
+    <!-- Grid column -->
+    <div class="col-md-12 col-lg-6 col-xl-5 mb-4">
 
-        <h5 class="card-header info-color white-text text-center py-4">
-            <strong>Search movie</strong>
-        </h5>
+        <section class="form-dark">
 
-        <!--Card content-->
-        <div class="card-body px-lg-5 pt-0">
+            <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');">
+                <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-2">
+                    <form method="POST">
+                    <!--Header-->
+                    <div class="text-center">
+                        <h3 class="white-text mb-5 mt-4 font-weight-bold"><strong>Add</strong> <a href="#" class="green-text font-weight-bold"><strong> {{ movie.0 }} </strong></a></h3>
+                    </div>
 
-            <!-- Form -->
-            <form class="text-center" style="color: #757575;" action="#!" method="Post">
-            {% csrf_token %}
+                    <!--Body-->
+                    <div class="md-form">
+                        <input type="text" id="Form-email5" name="title" class="form-control white-text" value={{ movie.0 }}>
+                        <label for="Form-email5"Movie name</label>
+                    </div>
 
-                <!-- Movie Name -->
-                <div class="md-form mt-3">
-                    {% comment %} <label for="materialContactFormName">Movie name</label> {% endcomment %}
-                    <input type="text" id="materialContactFormName" name="movie_name" class="form-control" placeholder="Movie name">                    
+                    <div class="md-form">
+                        <input type="text" id="Form-pass5" class="form-control">
+                        <label for="Form-pass5">Your mail</label>
+                    </div>
+
+                    <div class="md-form mb-5">
+                        <textarea type="text" id="message5" name="message5" rows="2" class="form-control md-textarea white-text"></textarea>
+                        <label for="message5">Your message</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="checkbox7">
+                            <label for="checkbox7" class="form-check-label white-text">Subscribe to our<a href="#" class="green-text font-weight-bold"> newsletter?</a></label>
+                        </div>
+                    </div>
+                    
+                    <!--Grid row-->
+                    <div class="row d-flex align-items-center">
+
+                        <!--Grid column-->
+                        <div class="text-center mb-3 col-md-12">
+                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Send message</button>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
                 </div>
+            </div>
 
-                <!-- Send button -->
-                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
-
-            </form>
-            <!-- Form -->
-
-        </div>
+        </section>
 
     </div>
-    <!-- Material form contact -->
-</div>
+    <!-- Grid column -->
 
-{% if search_results %}
-<div class="container"> 
-
-    {% include 'filmlib/includes/movies_card.html' %}
-
-</div>
-{% endif %}
 {% endblock content %}
