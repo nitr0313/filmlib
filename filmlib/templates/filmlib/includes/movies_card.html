@@ -1,0 +1,39 @@
+    {% load filmlib_filters %}
+    <!--Grid row-->
+    <div class="row">
+        {% for movie in movies %}
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6">
+
+            <!-- Card -->
+            <div class="card mb-4">
+
+                <!-- Card image -->
+                <div class="view overlay">
+                <img class="card-img-top" src="{{ movie.3 }}" alt="Card image cap">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body">
+
+                <!-- Title -->
+                <h4 class="card-title">{{ movie.0 }}</h4>
+                <!-- Text -->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <button type="button" class="btn btn-primary btn-md">Read more</button>
+
+                </div>
+                <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+        </div>
+        <!--Grid column-->
+        {% endfor %}
+    </div>
+    <!--Grid row-->
