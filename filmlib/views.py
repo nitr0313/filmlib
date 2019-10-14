@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 import requests
 from .utils import get_movie_info
 from django.views.generic import View
+from django.http import HttpResponse
 
+DEBAG = True
 
 base_search_url = 'https://www.kinopoisk.ru/index.php?kp_query={}'
 base_url = 'https://www.kinopoisk.ru{}'
@@ -16,8 +18,26 @@ def home(request):
 
 class AddMovie(View):
     def get(self, request, id):
-        dic_data = get_movie_info(id)
-        print(f" dic_data ->> {dic_data}")
+        if DEBAG:
+            dic_data = {
+                'title': 'Кавказская пленница, или Новые приключения Шурика',
+                'duration': '01:19:53',
+                'poster': 'https://www.kinopoisk.ru/images/film_big/44745.jpg',
+                'rait': '8.458',
+                'director': ' Леонид Гайдай',
+                'genre': ' комедия,  приключения,  мелодрама,  семейный,  музыка',
+                'stars': '',
+                'release': '1964',
+                'about':'''Отправившись в одну из горных республик собирать фольклор, герой фильма Шурик влюбляется в симпатичную девушку — «спортсменку, отличницу, и просто красавицу». Но ее неожиданно похищают, чтобы насильно выдать замуж.
+
+                        Наивный Шурик не сразу смог сообразить, что творится у него под носом, — однако затем отважно ринулся освобождать «кавказскую пленницу»…'''
+                }
+        else:
+            dic_data = get_movie_info(id)
+        if 'captcha' in dic_data:
+            # return render(request, 'filmlib/kinopoisk_captcha.html', context=dic_data)
+            return HttpResponse(dic_data['captcha'])
+
         ls = ['title','rait','director','stars','about','poster',
             'rait_out',
             'genre','add_date','release']
@@ -30,7 +50,7 @@ class AddMovie(View):
         }
         return render(request, 'filmlib/add_movie.html', context=con)
 
-    def post(self, request ):
+    def post(self, request):
         # If all OK, redirect to deteail movie
         pass
 

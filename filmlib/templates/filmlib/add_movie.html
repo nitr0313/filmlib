@@ -2,36 +2,37 @@
 
 
 {% block content %}
+<div class='' style="text-align: -webkit-center;">
     <!-- Grid column -->
     <div class="col-md-12 col-lg-6 col-xl-5 mb-4">
-
         <section class="form-dark">
-
             <div class="card card-image" style="background-image: url('{{ movie.5 }}');">
                 <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-2">
-                    <form action={% url 'add_new_movie' %} method="POST">
+                    <form action={% url 'add_new_movie' '1' %} method="POST">
                     {% csrf_token %}
                     <!--Header-->
                     <div class="text-center">
-                        <h3 class="white-text mb-5 mt-4 font-weight-bold"><strong>Add</strong> <a href="#" class="green-text font-weight-bold"><strong> {{ movie.0 }} </strong></a></h3>
+                        <h3 class="white-text mb-5 mt-4 font-weight-bold"><a href="#" class="green-text font-weight-bold"><strong> {{ movie.0 }} </strong></a></h3>
+                        
                     </div>
 
                     <!--Body-->
                     <div class="md-form">
-                        <input type="text" id="movie-title" name="title" class="form-control white-text" value={{ movie.0 }}>
+                        <input type="text" id="movie-title" name="title" class="form-control white-text" value="{{ movie.0 }}">
+
                     </div>
                     <div class="md-form">
-                        <input type="text" id="movie-rait" name="rait" class="form-control white-text" value={{ movie.1 }}>
+                        <input type="text" id="movie-rait" name="rait" class="form-control white-text" value="{{ movie.1 }}">
                     </div>
                     <div class="md-form">
-                        <input type="text" id="movie-director" name="director" class="form-control white-text" value={{ movie.2 }}>
+                        <input type="text" id="movie-director" name="director" class="form-control white-text" value="{{ movie.2 }}">
                     </div>
                     <div class="md-form">
-                        <input type="text" id="movie-stars" name="stars" class="form-control white-text" value={{ movie.3 }}>
+                        <input type="text" id="movie-stars" name="stars" class="form-control white-text" value="{{ movie.3 }}">
                     </div>
 
                     <div class="md-form mb-5">
-                        <textarea type="text" id="movie-about" name="about" rows="2" class="form-control md-textarea white-text">{{ movie.4 }}</textarea>
+                        <textarea type="text" id="movie-about" name="about" rows="2" class="form-control md-textarea white-text" >"{{ movie.4 }}"</textarea>
 
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="checkbox7">
@@ -58,5 +59,6 @@
 
     </div>
     <!-- Grid column -->
+    </div>
 
 {% endblock content %}
