@@ -7,9 +7,10 @@
 
         <section class="form-dark">
 
-            <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');">
+            <div class="card card-image" style="background-image: url('{{ movie.5 }}');">
                 <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-2">
-                    <form method="POST">
+                    <form action={% url 'add_new_movie' %} method="POST">
+                    {% csrf_token %}
                     <!--Header-->
                     <div class="text-center">
                         <h3 class="white-text mb-5 mt-4 font-weight-bold"><strong>Add</strong> <a href="#" class="green-text font-weight-bold"><strong> {{ movie.0 }} </strong></a></h3>
@@ -17,30 +18,33 @@
 
                     <!--Body-->
                     <div class="md-form">
-                        <input type="text" id="Form-email5" name="title" class="form-control white-text" value={{ movie.0 }}>
-                        <label for="Form-email5"Movie name</label>
+                        <input type="text" id="movie-title" name="title" class="form-control white-text" value={{ movie.0 }}>
                     </div>
-
                     <div class="md-form">
-                        <input type="text" id="Form-pass5" class="form-control">
-                        <label for="Form-pass5">Your mail</label>
+                        <input type="text" id="movie-rait" name="rait" class="form-control white-text" value={{ movie.1 }}>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="movie-director" name="director" class="form-control white-text" value={{ movie.2 }}>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="movie-stars" name="stars" class="form-control white-text" value={{ movie.3 }}>
                     </div>
 
                     <div class="md-form mb-5">
-                        <textarea type="text" id="message5" name="message5" rows="2" class="form-control md-textarea white-text"></textarea>
-                        <label for="message5">Your message</label>
+                        <textarea type="text" id="movie-about" name="about" rows="2" class="form-control md-textarea white-text">{{ movie.4 }}</textarea>
+
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="checkbox7">
-                            <label for="checkbox7" class="form-check-label white-text">Subscribe to our<a href="#" class="green-text font-weight-bold"> newsletter?</a></label>
+                            <label for="checkbox7" class="form-check-label white-text">Просмотрено</label>
                         </div>
                     </div>
-                    
+
                     <!--Grid row-->
                     <div class="row d-flex align-items-center">
 
                         <!--Grid column-->
                         <div class="text-center mb-3 col-md-12">
-                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Send message</button>
+                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Add to base</button>
                         </div>
                         <!--Grid column-->
 

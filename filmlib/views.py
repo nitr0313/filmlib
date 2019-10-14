@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 from .utils import get_movie_info
 from django.views.generic import View
- 
+
 
 base_search_url = 'https://www.kinopoisk.ru/index.php?kp_query={}'
 base_url = 'https://www.kinopoisk.ru{}'
@@ -17,15 +17,16 @@ def home(request):
 class AddMovie(View):
     def get(self, request, id):
         dic_data = get_movie_info(id)
-        ls = ['title','poster','about','rait',
-            'rait_out','director','stars',
+        print(f" dic_data ->> {dic_data}")
+        ls = ['title','rait','director','stars','about','poster',
+            'rait_out',
             'genre','add_date','release']
         result = []
         for field in ls:
             result.append(dic_data.get(field, ''))
+
         con = {
             'movie': result,
-
         }
         return render(request, 'filmlib/add_movie.html', context=con)
 
@@ -35,11 +36,12 @@ class AddMovie(View):
 
 
 
-def add_movie(request):    
+def add_movie(request):
     return render(request, 'filmlib/search_movie.html')
 
 
 def movie_search(request):
+    # TODO <a href="/lists/navigator/sci-fi/?quick_filters=films">фантастика</a>
     req = request.POST.get('movie_name', False)
     result = []
     url = ''
@@ -55,14 +57,14 @@ def movie_search(request):
             raw_name = movie.find(class_='name')
             if 'data-type="person"' in raw_name or 'data-type="place"' in raw_name:
                 continue
-            raw_url = raw_name.find("a").get("data-url") 
+            raw_url = raw_name.find("a").get("data-url")
 
             name = raw_name.text # Movie name
-            main_url = base_url.format(raw_url) # Url of main page movie kinopoisk.ru    
+            main_url = base_url.format(raw_url) # Url of main page movie kinopoisk.ru
             data_id = raw_name.find("a").get("data-id") # id in kinopoisk datebase
-            raw_rate = movie.find(class_='rating') # Movie Rating 
+            raw_rate = movie.find(class_='rating') # Movie Rating
             big_img = big_img_url.format('.'.join([data_id,'jpg'])) # Poster image
-            
+
             if raw_rate:
                 rate = raw_rate.text
             else:
