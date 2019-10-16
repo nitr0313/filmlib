@@ -6,33 +6,39 @@
     <!-- Grid column -->
     <div class="col-md-12 col-lg-6 col-xl-5 mb-4">
         <section class="form-dark">
-            <div class="card card-image" style="background-image: url('{{ movie.5 }}');">
-                <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-2">
-                    <form action={% url 'add_new_movie' '1' %} method="POST">
+            <div class="card card-image" style="background-image: url('{{ poster }}');">
+                <div class="text-white rgba-stylish-strong py-2 px-2 z-depth-2">
+                    <form action={% url 'add_new_movie' kinopoisk_id %} method="POST">
                     {% csrf_token %}
                     <!--Header-->
                     <div class="text-center">
-                        <h3 class="white-text mb-5 mt-4 font-weight-bold"><a href="#" class="green-text font-weight-bold"><strong> {{ movie.0 }} </strong></a></h3>
+                        <h3 class="white-text mb-3 mt-2 font-weight-bold"><a href="#" class="green-text font-weight-bold"><strong> {{ title }}  ({{ release }}) </strong></a></h3>
                         
                     </div>
 
                     <!--Body-->
-                    <div class="md-form">
-                        <input type="text" id="movie-title" name="title" class="form-control white-text" value="{{ movie.0 }}">
+                    <div class="md-form mb-1 mt-1" >
+                        <input style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-title" name="title" class="form-control white-text" value="{{ title }} ">
 
                     </div>
-                    <div class="md-form">
-                        <input type="text" id="movie-rait" name="rait" class="form-control white-text" value="{{ movie.1 }}">
+                    <div class="md-form mb-1 mt-1">
+                        <input style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-rait" name="rait" class="form-control white-text" value="{{ rait }}">
                     </div>
-                    <div class="md-form">
-                        <input type="text" id="movie-director" name="director" class="form-control white-text" value="{{ movie.2 }}">
+                    <div class="md-form mb-1 mt-1">
+                        <input style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-director" name="director" class="form-control white-text" value="{{ director }}">
                     </div>
-                    <div class="md-form">
-                        <input type="text" id="movie-stars" name="stars" class="form-control white-text" value="{{ movie.3 }}">
+                    <div class="md-form mb-1 mt-1">
+                        <input style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-stars" name="stars" class="form-control white-text" value="{{ stars }}">
                     </div>
-
+                    <div class="md-form mb-1 mt-1">
+                        <input style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-genre" name="genre" class="form-control white-text" value="{{ genre }}">
+                    </div>                   
+                        <input style="visible:None" type="text" id="kinopoisk_id-genre" name="kinopoisk_id" value="{{ kinopoisk_id }}">                   
+                        <input style="visible:None" type="text" id="release" name="release" value="{{ release }}">  
+                        <input style="visible:None" type="text" id="poster" name="poster" value="{{ poster }}">                
+                        <input style="visible:None" type="text" id="duration" name="duration" value="{{ duration }}">                
                     <div class="md-form mb-5">
-                        <textarea type="text" id="movie-about" name="about" rows="2" class="form-control md-textarea white-text" >"{{ movie.4 }}"</textarea>
+                        <textarea style="background-color: rgba(10, 10, 10, 0.5);" type="text" id="movie-about" name="about"  rows="2" style='height:fit-content;' class="form-control md-textarea white-text" >"{{ about }}"</textarea>
 
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="checkbox7">
@@ -45,7 +51,7 @@
 
                         <!--Grid column-->
                         <div class="text-center mb-3 col-md-12">
-                            <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Add to base</button>
+                            <button class="btn btn-success btn-block btn-rounded z-depth-1" type='submit' >Add to base</button>
                         </div>
                         <!--Grid column-->
 
@@ -60,5 +66,7 @@
     </div>
     <!-- Grid column -->
     </div>
+{% if form_errors %} <p> {{ form_errors }} </p> {% endif %}
+
 
 {% endblock content %}

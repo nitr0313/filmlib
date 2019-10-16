@@ -1,0 +1,41 @@
+
+    {% load filmlib_filters %}
+    {% load static %}
+    <!--Grid row-->
+    <div class="row">
+        {% for movie in movies %}
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6">
+
+            <!-- Card -->
+            <div class="card mb-4">
+
+                <!-- Card image -->
+                <div class="view overlay">
+                <img class="card-img-top" src="{% if movie.poster %}{{ movie.poster }}{% else %}{% static '/img/no-poster.jpg' %} {% endif %}" alt="Card image cap">
+                <a href="{{ movie.slug }}">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body">
+
+                <!-- Title -->
+                <h4 class="card-title">{{ movie.title }}</h4>
+                <!-- Text -->
+                <p class="card-text"> Rating : {{ movie.rait }}</p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <a href="" class="btn btn-primary btn-md">Edit film</a>
+
+                </div>
+                <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+        </div>
+        <!--Grid column-->
+        {% endfor %}
+    </div>
+    <!--Grid row-->
