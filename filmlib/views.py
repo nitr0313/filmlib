@@ -79,13 +79,16 @@ def movie_search(request):
         index = 0
         for movie in movies_list:
             raw_name = movie.find(class_='name')
+
             if 'data-type="person"' in raw_name or 'data-type="place"' in raw_name:
                 continue
+            kinopoisk_id = raw_name.find("a").get("data-id") # id in kinopoisk datebase
+            mv = Movie.objects.all().filter(kinopoisk_id=kinopoisk_id)
             raw_url = raw_name.find("a").get("data-url")
 
             name = raw_name.text # Movie name
             main_url = base_url.format(raw_url) # Url of main page movie kinopoisk.ru
-            kinopoisk_id = raw_name.find("a").get("data-id") # id in kinopoisk datebase
+
             raw_rate = movie.find(class_='rating') # Movie Rating
             big_img = big_img_url.format('.'.join([kinopoisk_id,'jpg'])) # Poster image
 

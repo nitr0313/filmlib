@@ -61,15 +61,15 @@ def get_movie_info(kino_id):
     about = ''
     if res:
         about = '\n'.join([ x.get('content') for x in res])
-
     duration = soup.find('meta', {'itemprop':'duration'}).get('content', '')
     title = soup.find('meta', {'itemprop':'name'}).get('content', '')
     poster = big_img_url.format('.'.join((kino_id,'jpg')))
     rait = soup.find('span', {'class':'rating_ball'}).text
     director = soup.find('td', {'itemprop':'director'}).text
-    stars = ''
+    raw_stars = soup.findAll('li', {'itemprop':'actors'})
+    stars = ','.join([x.text for x in raw_stars[5]])
     genre = soup.find('span', {'itemprop':'genre'}).text
-    release = ''
+    release = soup.find('div', {'itemprop':'dateCreated'}).text  # TODO FIX IT!!!
     result = {
         'title':title,
         'duration':duration,
@@ -78,8 +78,8 @@ def get_movie_info(kino_id):
         'director':str(director),
         'genre':genre,
         'stars':stars,
-        'release':release,
+        'release':release if '-' not in release else release.split('-')[0],
         'kinopoisk_id':kino_id,
-        'about':' '
+        'about':about
         }
     return True, result

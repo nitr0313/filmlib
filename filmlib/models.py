@@ -16,7 +16,7 @@ class Movie(models.Model):
     add_date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     release = models.IntegerField(blank=True, default=1900, null=True) # release date
     duration = models.CharField(max_length=10, default='00:00:00', null=True) # duration time
-    kinopois_id = models.IntegerField(blank=True, default=0) # 
+    kinopoisk_id = models.IntegerField(db_index=True, blank=True, default=0) # 
     slug = models.SlugField(default='')
 
     # def get_create_url(self, kino_id):

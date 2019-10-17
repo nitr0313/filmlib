@@ -9,5 +9,5 @@ class MovieForm(forms.ModelForm):
             'title','poster','about',
             'rait','rait_home','director',
             'stars','genre','add_date',
-            'release','duration','kinopois_id',
+            'release','duration','kinopoisk_id',
         ]
