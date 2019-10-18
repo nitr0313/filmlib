@@ -69,7 +69,7 @@ def get_movie_info(kino_id):
     raw_stars = soup.findAll('li', {'itemprop':'actors'})
     stars = ','.join([x.text for x in raw_stars[5]])
     genre = soup.find('span', {'itemprop':'genre'}).text
-    release = soup.find('div', {'itemprop':'dateCreated'}).text  # TODO FIX IT!!!
+    release = soup.find('meta', {'itemprop':'dateCreated'}).text  # TODO FIX IT!!!
     result = {
         'title':title,
         'duration':duration,
@@ -79,7 +79,7 @@ def get_movie_info(kino_id):
         'genre':genre,
         'stars':stars,
         'release':release if '-' not in release else release.split('-')[0],
-        'kinopoisk_id':kino_id,
+        'kinopoisk_id':kino_id if kino_id else 1900,
         'about':about
         }
     return True, result
